@@ -29,9 +29,9 @@ section {
   padding: 100px 0;
 }
 .about,
-.projects,
+.technoloties,
 .skills,
-.organizations,
+.members,
 .footer {
   font-family: "Poppins", sans-serif;
 }
@@ -41,7 +41,7 @@ section {
   margin: auto;
 }
 .about .about-content,
-.projects .serv-content,
+.technoloties .serv-content,
 .skills .skills-content {
   display: flex;
   flex-wrap: wrap;
@@ -254,7 +254,7 @@ section .title::after {
   margin-bottom: 10px;
 }
 .about .about-content .right .text span {
-  color: #322653;
+  color: #ffffff;
 }
 .about .about-content .right p {
   text-align: justify;
@@ -276,25 +276,25 @@ section .title::after {
   background: none;
 }
 
-/* projects section styling */
-.projects,
-.organizations {
+/* technoloties section styling */
+.technoloties,
+.members {
   color: #fff;
   background: #111;
 }
-.projects .title {
+.technoloties .title {
   color: #fff;
 }
-.projects .title::before {
+.technoloties .title::before {
   background: #fff;
   bottom: -1040px;
 }
-.projects .title::after {
+.technoloties .title::after {
   background: #111;
   bottom: -1055px;
   color: #322653;
 }
-.projects .serv-content .card {
+.technoloties .serv-content .card {
   width: calc(33% - 20px);
   background: #222;
   text-align: center;
@@ -302,34 +302,34 @@ section .title::after {
   padding: 35px 30px;
   cursor: pointer;
 }
-.projects .serv-content .card:hover {
+.technoloties .serv-content .card:hover {
   background: #322653;
 }
-.projects .serv-content .card .box {
+.technoloties .serv-content .card .box {
   transition: all 0.3s ease;
 }
-.projects .serv-content .card:hover .box {
+.technoloties .serv-content .card:hover .box {
   transform: scale(1.05);
 }
-.projects .serv-content .card i {
+.technoloties .serv-content .card i {
   margin-bottom: 20px;
   font-size: 25px;
   color: #322653;
 }
-.projects .serv-content .card p {
+.technoloties .serv-content .card p {
   padding: 15px;
   text-align: center;
 }
-.projects .serv-content .card:hover i {
+.technoloties .serv-content .card:hover i {
   color: #111;
 }
-.projects .serv-content .card:hover .text {
+.technoloties .serv-content .card:hover .text {
   color: #111;
 }
-.projects .serv-content .card:hover p {
+.technoloties .serv-content .card:hover p {
   color: #111;
 }
-.projects .serv-content .card .text {
+.technoloties .serv-content .card .text {
   font-family: "Great Vibes";
   font-size: 35px;
   font-weight: 400;
@@ -414,54 +414,54 @@ section .title::after {
   width: 50%;
 }
 
-/* organizations section styling */
-.organizations .title::before {
+/* members section styling */
+.members .title::before {
   background: #fff;
   bottom: -2240px;
 }
-.organizations .title::after {
+.members .title::after {
   background: #111;
   bottom: -2255px;
   color: #322653;
 }
-.organizations .carousel .card {
+.members .carousel .card {
   background: #222;
   border-radius: 6px;
   padding: 25px 35px;
   text-align: center;
   transition: all 0.3s ease;
 }
-.organizations .carousel .card:hover {
+.members .carousel .card:hover {
   background: #322653;
 }
-.organizations .carousel .card .box {
+.members .carousel .card .box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
 }
-.organizations .carousel .card:hover .box {
+.members .carousel .card:hover .box {
   transform: scale(1.05);
 }
-.organizations .carousel .card .text {
+.members .carousel .card .text {
   font-family: "Great Vibes";
   font-size: 35px;
-  color: #322653;
+  color: #ffffff;
   font-weight: 500;
   margin: 10px 0 7px 0;
 }
-.organizations .carousel .card:hover .text {
+.members .carousel .card:hover .text {
   color: #000;
 }
-.organizations .carousel .card img {
+.members .carousel .card img {
   height: 150px;
   width: 150px;
   object-fit: cover;
   border-radius: 15%;
   border: 5px solid #322653;
 }
-.organizations .carousel .card:hover img {
+.members .carousel .card:hover img {
   border-color: #000;
 }
 .owl-dots {
@@ -485,18 +485,18 @@ section .title::after {
   background: #322653 !important;
 }
 
-/* gallery section styling */
-.gallery .title::before {
+/* projects section styling */
+.projects .title::before {
   background: #111;
   bottom: -2940px;
 }
-.gallery .title::after {
+.projects .title::after {
   background: #fff;
   /*content: " What I Do ";*/
   bottom: -3200px;
   color: #322653;
 }
-.gallery .carousel-2 .card {
+.projects .carousel-2 .card {
   height: 400px;
   width: 550px;
   background: black;
@@ -507,20 +507,20 @@ section .title::after {
   justify-content: center;
   transition: all 0.3s ease;
 }
-.gallery .carousel-2 .card:hover {
+.projects .carousel-2 .card:hover {
   background: #322653;
 }
-.gallery .carousel-2 .card .box {
+.projects .carousel-2 .card .box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
 }
-.gallery .carousel-2 .card:hover .box {
+.projects .carousel-2 .card:hover .box {
   transform: scale(1.05);
 }
-.gallery .carousel-2 .card .text {
+.projects .carousel-2 .card .text {
   font-family: "Great Vibes";
   font-size: 45px;
   color: #322653;
@@ -528,26 +528,26 @@ section .title::after {
   margin: 30px 0 10px 0;
   text-align: center;
 }
-.gallery .carousel-2 .card .text2 {
+.projects .carousel-2 .card .text2 {
   font-family: "Great Vibes";
   font-size: 30px;
   color: #322653;
   font-weight: 500;
   margin: 20px 0 7px 0;
 }
-.gallery .carousel-2 .card:hover .text {
+.projects .carousel-2 .card:hover .text {
   color: #000;
 }
-.gallery .carousel-2 .card:hover .text2 {
+.projects .carousel-2 .card:hover .text2 {
   color: #000;
 }
-.gallery .carousel-2 .card img {
+.projects .carousel-2 .card img {
   height: 250px;
   width: auto;
   object-fit: cover;
   border: 5px solid #322653;
 }
-.gallery .carousel-2 .card:hover img {
+.projects .carousel-2 .card:hover img {
   border-color: #000;
   transform: scale(1.02);
 }
@@ -675,7 +675,7 @@ footer span a:hover {
   .about .about-content .right {
     flex: 100%;
   }
-  .projects .serv-content .card {
+  .technoloties .serv-content .card {
     width: calc(50% - 10px);
     margin-bottom: 20px;
   }
@@ -683,20 +683,20 @@ footer span a:hover {
     width: 100%;
     margin-bottom: 35px;
   }
-  .gallery .carousel-2 .card {
+  .projects .carousel-2 .card {
     width: 100%;
     height: auto;
   }
-  .gallery .carousel-2 .card img {
+  .projects .carousel-2 .card img {
     height: 180px;
     width: auto;
     object-fit: cover;
     border: 5px solid #322653;
   }
-  .gallery .carousel-2 .card .text {
+  .projects .carousel-2 .card .text {
     font-size: 25px;
   }
-  .gallery .carousel-2 .card .text2 {
+  .projects .carousel-2 .card .text2 {
     font-size: 17px;
   }
   footer {
@@ -730,23 +730,23 @@ footer span a:hover {
   .home .home-content a {
     font-size: 20px;
   }
-  .projects .serv-content .card {
+  .technoloties .serv-content .card {
     width: 100%;
   }
-  .gallery .carousel-2 .card {
+  .projects .carousel-2 .card {
     width: 100%;
     height: auto;
   }
-  .gallery .carousel-2 .card img {
+  .projects .carousel-2 .card img {
     height: 160px;
     width: auto;
     object-fit: cover;
     border: 5px solid #322653;
   }
-  .gallery .carousel-2 .card .text {
+  .projects .carousel-2 .card .text {
     font-size: 35px;
   }
-  .gallery .carousel-2 .card .text2 {
+  .projects .carousel-2 .card .text2 {
     font-size: 25px;
   }
   footer {
@@ -814,10 +814,10 @@ footer span a:hover {
   .about .title::after {
     bottom: -200px;
   }
-  .projects .title::before {
+  .technoloties .title::before {
     bottom: -1230px;
   }
-  .projects .title::after {
+  .technoloties .title::after {
     bottom: -1245px;
   }
   .skills .title::before {
@@ -826,32 +826,32 @@ footer span a:hover {
   .skills .title::after {
     bottom: -2375px;
   }
-  .organizations .title::before {
+  .members .title::before {
     bottom: -3200px;
   }
-  .organizations .title::after {
+  .members .title::after {
     bottom: -3215px;
   }
-  .gallery .title::before {
+  .projects .title::before {
     bottom: -2940px;
   }
-  .gallery .title::after {
+  .projects .title::after {
     bottom: -2955px;
   }
-  .gallery .carousel-2 .card {
+  .projects .carousel-2 .card {
     width: 100%;
     height: auto;
   }
-  .gallery .carousel-2 .card img {
+  .projects .carousel-2 .card img {
     height: 190px;
     width: auto;
     object-fit: cover;
     border: 5px solid #322653;
   }
-  .gallery .carousel-2 .card .text {
+  .projects .carousel-2 .card .text {
     font-size: 30px;
   }
-  .gallery .carousel-2 .card .text2 {
+  .projects .carousel-2 .card .text2 {
     font-size: 20px;
   }
   footer {
