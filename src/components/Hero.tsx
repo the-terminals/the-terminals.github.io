@@ -23,12 +23,6 @@ const Hero = () => {
                 for academic excellence and community growth.
               </p>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="outline" size="lg">
-                Join Our Community
-              </Button>
-            </div>
           </div>
 
           {/* Visual Element */}
