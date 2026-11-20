@@ -16,6 +16,11 @@ import { Card, CardContent } from "./ui/card";
 const AreasOfWork = () => {
   const areas = [
     {
+      icon: Heart,
+      title: "Islamic Studies",
+      description: "Scholarly research and discourse on Islamic principles and contemporary applications.",
+    },
+    {
       icon: Users,
       title: "Society",
       description: "Building stronger communities through social research and development initiatives.",
@@ -24,11 +29,6 @@ const AreasOfWork = () => {
       icon: BookOpen,
       title: "Education",
       description: "Advancing educational methodologies and promoting academic excellence.",
-    },
-    {
-      icon: Heart,
-      title: "Islamic Studies",
-      description: "Scholarly research and discourse on Islamic principles and contemporary applications.",
     },
     {
       icon: Palette,
