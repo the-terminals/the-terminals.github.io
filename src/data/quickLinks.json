@@ -8,9 +8,9 @@
   },
   {
     "icon": "BookOpen",
-    "title": "Knowledge Sharing",
-    "description": "Share insights, ideas, and educational resources with our community.",
-    "action": "Explore Knowledge",
+    "title": "Books Collection",
+    "description": "Browse our collection of books for Islamic education.",
+    "action": "Browse Books",
     "href": "/explore-knowledge"
   },
   {
