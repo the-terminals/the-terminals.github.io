@@ -8,6 +8,7 @@ import ExploreKnowledge from "./pages/ExploreKnowledge";
 import CareerGuidance from "./pages/CareerGuidance";
 import ResearchPublications from "./pages/ResearchPublications";
 import NotFound from "./pages/NotFound";
+import ScrollManager from "./components/ScrollManager";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollManager />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/explore-knowledge" element={<ExploreKnowledge />} />

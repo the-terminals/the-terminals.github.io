@@ -1,6 +1,7 @@
 import { ArrowRight, FileText, Mail, BookOpen, Brain } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import { Link } from "react-router-dom";
 
 const QuickLinks = () => {
   const links = [
@@ -35,7 +36,7 @@ const QuickLinks = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section id="quick-access" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
@@ -71,10 +72,10 @@ const QuickLinks = () => {
                   className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                   asChild
                 >
-                  <a href={link.href} className="inline-flex items-center">
+                  <Link to={link.href.startsWith("#") ? `/${link.href}` : link.href} className="inline-flex items-center">
                     {link.action}
                     <ArrowRight className="ml-2 h-3 w-3" />
-                  </a>
+                  </Link>
                 </Button>
               </CardContent>
             </Card>

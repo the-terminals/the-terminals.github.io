@@ -2,6 +2,7 @@ import { Clock, User, BookOpen } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 // Import images
 import courseArabicImage from "@/assets/course-arabic.jpg";
@@ -173,7 +174,7 @@ const KnowledgeSection = () => {
 
           <div className="text-center mt-8">
             <Button variant="outline" size="lg" asChild>
-              <a href="/explore-knowledge">View All Books & Courses</a>
+              <Link to="/explore-knowledge">View All Books & Courses</Link>
             </Button>
           </div>
         </div>

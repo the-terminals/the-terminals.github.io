@@ -8,12 +8,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Areas of Impact", href: "#areas" },
-    { name: "Our Work", href: "#our-work" },
-    { name: "Knowledge", href: "#knowledge" },
+    { name: "Home", href: "/#home", isRoute: true },
+    { name: "Areas of Impact", href: "/#areas", isRoute: true },
+    { name: "Our Work", href: "/#our-work", isRoute: true },
+    { name: "Knowledge", href: "/#knowledge", isRoute: true },
     { name: "Research", href: "/research-publications", isRoute: true },
-    { name: "Quick Access", href: "#quick-access" },
+    { name: "Quick Access", href: "/#quick-access", isRoute: true },
   ];
 
   return (
