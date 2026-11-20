@@ -10,7 +10,6 @@ const Footer = () => {
       title: "Navigation",
       links: [
         { name: "About Us", href: "#about" },
-        { name: "Our Work", href: "#work" },
         { name: "Research", href: "#research" },
         { name: "Career Guidance", href: "#career" },
         { name: "Blog", href: "#blog" },

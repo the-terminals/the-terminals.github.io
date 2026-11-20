@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
@@ -25,12 +24,6 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="group" asChild>
-                <a href="#our-work">
-                  Explore Our Work
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </Button>
               <Button variant="outline" size="lg">
                 Join Our Community
               </Button>
