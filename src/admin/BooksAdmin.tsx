@@ -6,19 +6,15 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import BookCard, { type Book } from "@/components/cards/BookCard";
-import { knowledgeImageOptions, resolveKnowledgeImage } from "@/data/knowledgeAssets";
+import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 import { useJsonFile } from "./useJsonFile";
-import { listUploadedImages, uploadImage } from "./storage";
+import { uploadImage } from "./storage";
 import { ConfirmRemove, LoadState, PageHeader, RowActions } from "./AdminParts";
 
 type KnowledgeFile = { books: Book[] } & Record<string, unknown>;
 
-const URL_OPTION = "__url";
-
-const imageLabel = (image: string) =>
-  image.startsWith("/images/books/") ? `${image.replace("/images/books/", "")} (uploaded)` : image;
+const fileName = (image: string) => image.split("/").pop() || image;
 
 const BooksAdmin = () => {
   const { data, loading, saving, error, reload, save: saveFile } = useJsonFile<KnowledgeFile>("knowledge.json");
@@ -26,46 +22,19 @@ const BooksAdmin = () => {
   const [preview, setPreview] = useState<Book | null>(null);
   const [removing, setRemoving] = useState<Book | null>(null);
   const [query, setQuery] = useState("");
-  const [uploaded, setUploaded] = useState<string[]>([]);
+
+  // cover upload
+  const [localPreview, setLocalPreview] = useState<string | null>(null); // shows the picked file instantly
   const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
 
+  // free the temporary preview URL when it is replaced or the form closes
   useEffect(() => {
-    listUploadedImages().then(setUploaded);
-  }, []);
-
-  const imageOptions = [...knowledgeImageOptions, ...uploaded];
-
-  const [dragging, setDragging] = useState(false);
-
-  const handleFile = async (file: File | undefined) => {
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please choose an image file (JPG, PNG, WebP or GIF).");
-      return;
-    }
-    setUploading(true);
-    try {
-      const path = await uploadImage(file);
-      setUploaded((prev) => [...prev, path].sort());
-      setField("image", path);
-      toast.success(`Image saved to public${path}`);
-    } catch (err) {
-      toast.error((err as Error).message);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const onUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    e.target.value = "";
-    handleFile(file);
-  };
-
-  const openFilePicker = () => {
-    if (!uploading && !saving) fileInput.current?.click();
-  };
+    return () => {
+      if (localPreview) URL.revokeObjectURL(localPreview);
+    };
+  }, [localPreview]);
 
   const books = useMemo(() => data?.books ?? [], [data]);
   const filtered = useMemo(() => {
@@ -75,16 +44,53 @@ const BooksAdmin = () => {
 
   const writeBooks = (next: Book[]) => saveFile({ ...(data as KnowledgeFile), books: next });
 
+  const openEditor = (value: Book, isNew: boolean) => {
+    setLocalPreview(null);
+    setEditing({ isNew, value });
+  };
+
+  const closeEditor = () => {
+    setLocalPreview(null);
+    setEditing(null);
+  };
+
   const openAdd = () => {
     const nextId = books.reduce((m, b) => Math.max(m, b.id), 0) + 1;
-    setEditing({
-      isNew: true,
-      value: { id: nextId, title: "", author: "", image: knowledgeImageOptions[0] ?? "" },
-    });
+    openEditor({ id: nextId, title: "", author: "", image: "" }, true);
   };
 
   const setField = (key: keyof Book, value: string) =>
-    editing && setEditing({ ...editing, value: { ...editing.value, [key]: value } });
+    setEditing((prev) => (prev ? { ...prev, value: { ...prev.value, [key]: value } } : prev));
+
+  const handleFile = async (file: File | undefined) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file (JPG, PNG, WebP or GIF).");
+      return;
+    }
+    setLocalPreview(URL.createObjectURL(file)); // instant preview
+    setUploading(true);
+    try {
+      const path = await uploadImage(file);
+      setField("image", path);
+      toast.success(`Image saved to public${path}`);
+    } catch (err) {
+      setLocalPreview(null);
+      toast.error((err as Error).message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const onFileChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    handleFile(file);
+  };
+
+  const openFilePicker = () => {
+    if (!uploading && !saving) fileInput.current?.click();
+  };
 
   const save = async () => {
     if (!editing) return;
@@ -92,10 +98,9 @@ const BooksAdmin = () => {
       ...editing.value,
       title: editing.value.title.trim(),
       author: editing.value.author.trim(),
-      image: editing.value.image.trim(),
     };
     const next = editing.isNew ? [...books, value] : books.map((b) => (b.id === value.id ? value : b));
-    if (await writeBooks(next)) setEditing(null);
+    if (await writeBooks(next)) closeEditor();
   };
 
   const remove = async () => {
@@ -105,9 +110,8 @@ const BooksAdmin = () => {
     await writeBooks(books.filter((b) => b.id !== book.id));
   };
 
-  const imageIsKnown = editing ? imageOptions.includes(editing.value.image) : true;
   const valid =
-    editing && editing.value.title.trim() && editing.value.author.trim() && editing.value.image.trim();
+    editing && editing.value.title.trim() && editing.value.author.trim() && editing.value.image;
 
   return (
     <div>
@@ -149,7 +153,7 @@ const BooksAdmin = () => {
                 </div>
                 <RowActions
                   onPreview={() => setPreview(book)}
-                  onEdit={() => setEditing({ isNew: false, value: book })}
+                  onEdit={() => openEditor(book, false)}
                   onRemove={() => setRemoving(book)}
                   disabled={saving}
                 />
@@ -165,7 +169,7 @@ const BooksAdmin = () => {
       )}
 
       {/* Add / edit */}
-      <Dialog open={!!editing} onOpenChange={(o) => !o && !saving && setEditing(null)}>
+      <Dialog open={!!editing} onOpenChange={(o) => !o && !saving && !uploading && closeEditor()}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing?.isNew ? "Add book" : "Edit book"}</DialogTitle>
@@ -175,32 +179,25 @@ const BooksAdmin = () => {
               <div className="grid gap-3 content-start">
                 <div className="grid gap-1.5">
                   <Label htmlFor="book-title">Title</Label>
-                  <Input id="book-title" value={editing.value.title} onChange={(e) => setField("title", e.target.value)} />
+                  <Input
+                    id="book-title"
+                    value={editing.value.title}
+                    onChange={(e) => setField("title", e.target.value)}
+                  />
                 </div>
                 <div className="grid gap-1.5">
                   <Label htmlFor="book-author">Author</Label>
-                  <Input id="book-author" value={editing.value.author} onChange={(e) => setField("author", e.target.value)} />
+                  <Input
+                    id="book-author"
+                    value={editing.value.author}
+                    onChange={(e) => setField("author", e.target.value)}
+                  />
                 </div>
                 <div className="grid gap-1.5">
                   <Label htmlFor="book-image">Cover image</Label>
-                  <div className="flex gap-2">
-                    <Select
-                      value={imageIsKnown ? editing.value.image : URL_OPTION}
-                      onValueChange={(v) => setField("image", v === URL_OPTION ? "" : v)}
-                    >
-                      <SelectTrigger id="book-image">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {imageOptions.map((name) => (
-                          <SelectItem key={name} value={name}>
-                            {imageLabel(name)}
-                          </SelectItem>
-                        ))}
-                        <SelectItem value={URL_OPTION}>Image URL…</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="flex items-center gap-3">
                     <Button
+                      id="book-image"
                       type="button"
                       variant="outline"
                       onClick={openFilePicker}
@@ -208,30 +205,26 @@ const BooksAdmin = () => {
                       className="shrink-0"
                     >
                       {uploading ? (
-                        <Loader2 className="h-4 w-4 animate-spin sm:mr-2" />
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
                       ) : (
-                        <Upload className="h-4 w-4 sm:mr-2" />
+                        <Upload className="h-4 w-4 mr-2" />
                       )}
-                      <span className="hidden sm:inline">Upload</span>
+                      {uploading ? "Uploading…" : "Upload image"}
                     </Button>
-                    <input
-                      ref={fileInput}
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp,image/gif"
-                      className="hidden"
-                      onChange={onUpload}
-                    />
+                    <span className="text-sm text-muted-foreground truncate">
+                      {editing.value.image ? fileName(editing.value.image) : "No image yet"}
+                    </span>
                   </div>
+                  <input
+                    ref={fileInput}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    className="hidden"
+                    onChange={onFileChosen}
+                  />
                   <p className="text-xs text-muted-foreground">
-                    Uploads are saved in public/images/books (max 5 MB). Commit them with the JSON.
+                    JPG, PNG, WebP or GIF, up to 5 MB. Saved in public/images/books.
                   </p>
-                  {!imageIsKnown && (
-                    <Input
-                      placeholder="https://example.com/cover.jpg"
-                      value={editing.value.image}
-                      onChange={(e) => setField("image", e.target.value)}
-                    />
-                  )}
                 </div>
               </div>
               <div>
@@ -258,13 +251,16 @@ const BooksAdmin = () => {
                   <BookCard
                     book={{
                       ...editing.value,
+                      image: localPreview ?? editing.value.image,
                       title: editing.value.title || "Title",
                       author: editing.value.author || "Author",
                     }}
                   />
                   <span
                     className={`absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-lg bg-black/55 text-white text-sm font-medium transition-opacity ${
-                      uploading || dragging ? "opacity-100" : "opacity-0 group-hover/cover:opacity-100 group-focus-visible/cover:opacity-100"
+                      uploading || dragging || !editing.value.image
+                        ? "opacity-100"
+                        : "opacity-0 group-hover/cover:opacity-100 group-focus-visible/cover:opacity-100"
                     }`}
                   >
                     {uploading ? (
@@ -272,7 +268,13 @@ const BooksAdmin = () => {
                     ) : (
                       <ImagePlus className="h-6 w-6" />
                     )}
-                    {uploading ? "Uploading…" : dragging ? "Drop image here" : "Change image"}
+                    {uploading
+                      ? "Uploading…"
+                      : dragging
+                        ? "Drop image here"
+                        : editing.value.image
+                          ? "Change image"
+                          : "Add cover image"}
                   </span>
                 </button>
                 <p className="mt-1.5 text-center text-xs text-muted-foreground">
@@ -282,7 +284,7 @@ const BooksAdmin = () => {
             </div>
           )}
           <DialogFooter>
-            <Button variant="ghost" onClick={() => setEditing(null)} disabled={saving}>
+            <Button variant="ghost" onClick={closeEditor} disabled={saving || uploading}>
               Cancel
             </Button>
             <Button onClick={save} disabled={!valid || saving || uploading}>
