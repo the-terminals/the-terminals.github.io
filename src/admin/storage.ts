@@ -19,3 +19,20 @@ export async function saveFile<T>(file: DataFile, data: T): Promise<void> {
   });
   if (!res.ok) throw new Error(`Could not write src/data/${file}: ${await res.text()}`);
 }
+
+/** Paths of uploaded book covers, e.g. "/images/books/my-cover.jpg". */
+export async function listUploadedImages(): Promise<string[]> {
+  const res = await fetch("/__admin/images", { cache: "no-store" });
+  return res.ok ? res.json() : [];
+}
+
+/** Saves an image into public/images/books and returns its site path. */
+export async function uploadImage(file: File): Promise<string> {
+  const res = await fetch(`/__admin/images?name=${encodeURIComponent(file.name)}`, {
+    method: "POST",
+    body: file,
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.error || "Upload failed");
+  return body.path;
+}
