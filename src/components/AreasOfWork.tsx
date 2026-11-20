@@ -10,68 +10,26 @@ import {
   MapPin,
   Building,
   RefreshCw,
+  type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
+import areas from "@/data/areasOfWork.json";
+
+const areaIcons: Record<string, LucideIcon> = {
+  BookOpen,
+  Building,
+  Cpu,
+  Globe,
+  Heart,
+  Lightbulb,
+  MapPin,
+  Palette,
+  RefreshCw,
+  Users,
+  Wrench,
+};
 
 const AreasOfWork = () => {
-  const areas = [
-    {
-      icon: Heart,
-      title: "Islamic Studies",
-      description: "Scholarly research and discourse on Islamic principles and contemporary applications.",
-    },
-    {
-      icon: Users,
-      title: "Society",
-      description: "Building stronger communities through social research and development initiatives.",
-    },
-    {
-      icon: BookOpen,
-      title: "Education",
-      description: "Advancing educational methodologies and promoting academic excellence.",
-    },
-    {
-      icon: Palette,
-      title: "Cultural Establishment",
-      description: "Preserving and promoting cultural heritage through research and community programs.",
-    },
-    {
-      icon: Cpu,
-      title: "Science & Technology",
-      description: "Cutting-edge research in emerging technologies and scientific innovations.",
-    },
-    {
-      icon: Lightbulb,
-      title: "Problem Solving",
-      description: "Developing innovative solutions to complex academic and social challenges.",
-    },
-    {
-      icon: Wrench,
-      title: "System Optimization",
-      description: "Improving efficiency in educational and organizational systems.",
-    },
-    {
-      icon: Globe,
-      title: "Social Responsibility",
-      description: "Promoting ethical practices and community engagement initiatives.",
-    },
-    {
-      icon: MapPin,
-      title: "Geographical Research",
-      description: "Exploring geographical and historical perspectives for academic insight.",
-    },
-    {
-      icon: Building,
-      title: "International Relations",
-      description: "Analyzing global affairs and diplomatic relations for academic understanding.",
-    },
-    {
-      icon: RefreshCw,
-      title: "Reconstruction Systems",
-      description: "Developing frameworks for sustainable development and social reconstruction.",
-    },
-  ];
-
   return (
     <section id="areas" className="py-20 bg-secondary/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,26 +44,26 @@ const AreasOfWork = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {areas.map((area, index) => (
-            <Card
-              key={index}
-              className="interactive-card h-full border-0 shadow-elegant"
-            >
-              <CardContent className="p-6 flex flex-col h-full">
-                <div className="flex items-center mb-4">
-                  <div className="p-2 bg-primary/10 rounded-lg mr-3">
-                    <area.icon className="h-6 w-6 text-primary" />
+          {areas.map((area) => {
+            const Icon = areaIcons[area.icon];
+            return (
+              <Card key={area.title} className="interactive-card h-full border-0 shadow-elegant">
+                <CardContent className="p-6 flex flex-col h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="p-2 bg-primary/10 rounded-lg mr-3">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {area.title}
+                    </h3>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {area.title}
-                  </h3>
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed flex-grow">
-                  {area.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-grow">
+                    {area.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

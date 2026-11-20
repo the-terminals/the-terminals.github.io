@@ -3,76 +3,12 @@ import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
-
-// Import images
-import courseArabicImage from "@/assets/course-arabic.jpg";
-import courseRiyadImage from "@/assets/course-riyad.jpg";
-import courseEconomicsImage from "@/assets/course-economics.jpg";
-import courseProphetsImage from "@/assets/course-prophets.jpg";
-import bookQuranImage from "@/assets/book-quran.jpg";
-import bookHadithImage from "@/assets/book-hadith.jpg";
-import bookSirahImage from "@/assets/book-sirah.jpg";
-import bookFiqhImage from "@/assets/book-fiqh.jpg";
-import bookAqeedahImage from "@/assets/book-aqeedah.jpg";
-import bookEthicsImage from "@/assets/book-ethics.jpg";
-import bookHistoryImage from "@/assets/book-history.jpg";
-import bookSpiritualityImage from "@/assets/book-spirituality.jpg";
+import knowledgeData from "@/data/knowledge.json";
+import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 
 const KnowledgeSection = () => {
-  const courses = [
-    {
-      id: 1,
-      title: "কুরআনিক আরবি ভাষা পরিচিতি",
-      instructor: "ড. আবু আমিনাহ বিলাল ফিলিপ্স",
-      duration: "১২ সপ্তাহ",
-      topics: ["আরবি বর্ণমালা", "মৌলিক ব্যাকরণ", "কুরআনের শব্দভাণ্ডার", "সহজ আয়াতের অনুবাদ"],
-      image: courseArabicImage,
-    },
-    {
-      id: 2,
-      title: "রিয়াদুস সালিহীন অধ্যয়ন",
-      instructor: "শাইখ আব্দুর রাযযাক আল-বাদর",
-      duration: "১৮ সপ্তাহ",
-      topics: ["ইখলাস (নিষ্ঠা)", "তাওবা", "সবর (ধৈর্য)", "আদব (শিষ্টাচার)"],
-      image: courseRiyadImage,
-    },
-    {
-      id: 3,
-      title: "ইসলামী অর্থনীতির মূলনীতি",
-      instructor: "ড. মুহাম্মদ নেজাতুল্লাহ সিদ্দিকী",
-      duration: "১০ সপ্তাহ",
-      topics: ["রিবা মুক্ত লেনদেন", "যাকাত ব্যবস্থাপনা", "ইসলামী ব্যাংকিং", "নৈতিক বিনিয়োগ"],
-      image: courseEconomicsImage,
-    },
-    {
-      id: 4,
-      title: "নবীদের কাহিনী: জীবন থেকে শিক্ষা",
-      instructor: "শাইখ ওমর সুলেমান",
-      duration: "১৫ সপ্তাহ",
-      topics: ["আদম (আ.) এর পরীক্ষা", "ইব্রাহিম (আ.) এর ত্যাগ", "মূসা (আ.) এর সংগ্রাম", "মুহাম্মদ (ﷺ) এর দাওয়াত"],
-      image: courseProphetsImage,
-    },
-  ];
-
-  const bookImages = [
-    bookQuranImage, bookHadithImage, bookSirahImage, bookFiqhImage,
-    bookAqeedahImage, bookEthicsImage, bookHistoryImage, bookSpiritualityImage
-  ];
-
-  const getBookImage = (index: number) => {
-    return bookImages[index % bookImages.length];
-  };
-
-  const books = [
-    { id: 1, title: "তাফসীর : তাওযীহুল কুরআন", author: "আল্লামা মুহাম্মদ তাকী উসমানী" },
-    { id: 2, title: "হাদীস : রিয়াদুস সালেহীন", author: "ইমাম মুহিউদ্দীন ইয়াহইয়া আন-নববী" },
-    { id: 3, title: "সীরাত : সীরাহ - রেইনড্রপস", author: "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর" },
-    { id: 4, title: "নবিদের কাহিনি (১,২)", author: "মুহাম্মদ আসাদুল্লাহ আল-গালিব" },
-    { id: 5, title: "আসহাবে রাসূলের জীবনকথা", author: "ড. মুহাম্মদ আবদুল মা'বুদ" },
-    { id: 6, title: "সংগ্রামী সাধকদের ইতিহাস", author: "সাইয়েদ আবুল হাসান আলী নদভী" },
-    { id: 7, title: "ইসলামের বুনিয়াদী শিক্ষা", author: "সাইয়েদ আবুল আ'লা মওদুদী" },
-    { id: 8, title: "ঈমান সবার আগে", author: "মাওলানা মুহাম্মদ আবদুল মালেক" },
-  ];
+  const courses = knowledgeData.courses;
+  const books = knowledgeData.books.slice(0, 8);
 
   return (
     <section id="knowledge" className="py-20 bg-muted/30">
@@ -100,7 +36,7 @@ const KnowledgeSection = () => {
               <Card key={course.id} className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 <div className="aspect-video relative overflow-hidden">
                   <img
-                    src={course.image}
+                    src={resolveKnowledgeImage(course.image)}
                     alt={course.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
@@ -150,11 +86,11 @@ const KnowledgeSection = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {books.map((book, index) => (
+            {books.map((book) => (
               <Card key={book.id} className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                 <div className="aspect-[3/4] relative overflow-hidden">
                   <img
-                    src={getBookImage(index)}
+                    src={resolveKnowledgeImage(book.image)}
                     alt={book.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />

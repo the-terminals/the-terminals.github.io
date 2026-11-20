@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
+import siteData from "@/data/site.json";
 
 const Hero = () => {
 
@@ -36,17 +37,8 @@ const Hero = () => {
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-foreground">Our Mission Areas</h3>
                 <div className="grid grid-cols-2 gap-4 text-sm">
-                  {[
-                    "Knowledge Sharing",
-                    "Research & Development", 
-                    "Career Guidance",
-                    "Educational Excellence",
-                    "Intellectual Activities",
-                    "Social Responsibility",
-                    "Technology Innovation",
-                    "International Relations"
-                  ].map((area, index) => (
-                    <div key={index} className="flex items-center space-x-2">
+                  {siteData.missionAreas.map((area) => (
+                    <div key={area} className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-primary rounded-full"></div>
                       <span className="text-muted-foreground">{area}</span>
                     </div>

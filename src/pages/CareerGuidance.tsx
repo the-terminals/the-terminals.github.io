@@ -1,227 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Briefcase, Code, Database, Palette, TestTube, TrendingUp, ChevronRight, Target, Users } from "lucide-react";
+import { ArrowLeft, Briefcase, Code, Database, Palette, TestTube, TrendingUp, ChevronRight, Target, Users, type LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import careerPathsData from "@/data/careerPaths.json";
 
-const careerPaths = [
-  {
-    id: "project_manager",
-    role_title: "Project Manager",
-    category: "Leadership/Business",
-    icon: Users,
-    focus: "Planning, executing, and closing projects; managing scope, schedule, budget, and risk to deliver a defined outcome.",
-    progression: [
-      "Project Coordinator",
-      "Associate Project Manager",
-      "Project Manager",
-      "Senior Project Manager / Program Manager"
-    ],
-    key_skills: [
-      "Scope & Risk Management",
-      "Stakeholder Communication",
-      "Budgeting",
-      "Agile/Scrum/Waterfall Methodologies",
-      "Leadership"
-    ]
-  },
-  {
-    id: "product_manager",
-    role_title: "Product Manager",
-    category: "Leadership/Business",
-    icon: Target,
-    focus: "Defining the 'why,' 'what,' and 'when' of the product that the engineering team builds. Focused on market, customer needs, and business value.",
-    progression: [
-      "Associate Product Manager (APM)",
-      "Product Manager",
-      "Senior Product Manager",
-      "Group Product Manager / Director of Product"
-    ],
-    key_skills: [
-      "Market Research",
-      "User Empathy (UX/UI Knowledge)",
-      "Product Strategy & Roadmap",
-      "Prioritization",
-      "Data Analysis (Metrics/KPIs)"
-    ]
-  },
-  {
-    id: "ui_ux_engineer",
-    role_title: "UI/UX Engineer",
-    category: "Design/Development",
-    icon: Palette,
-    focus: "Bridging the gap between design (UX/UI principles) and front-end development (coding) to build highly usable and accessible interfaces.",
-    progression: [
-      "Junior UX Developer",
-      "UI/UX Engineer",
-      "Senior Frontend Engineer (with UX focus)",
-      "Design System Architect"
-    ],
-    key_skills: [
-      "HTML, CSS, JavaScript",
-      "Design Tools (Figma/Sketch)",
-      "User Research & Testing",
-      "Accessibility (WCAG)",
-      "Responsive Design"
-    ]
-  },
-  {
-    id: "software_qa_engineer",
-    role_title: "Software QA Engineer",
-    category: "Testing/Quality",
-    icon: TestTube,
-    focus: "Defining, implementing, and executing strategies to ensure the final product meets functional and non-functional requirements.",
-    progression: [
-      "QA Tester (Manual)",
-      "QA Analyst / Automation Engineer (SDET)",
-      "Senior QA Automation Engineer",
-      "QA Manager / Director of Quality"
-    ],
-    key_skills: [
-      "Test Case Design & Execution",
-      "Test Automation Frameworks (Selenium, Cypress)",
-      "CI/CD Integration",
-      "Performance/Security Testing",
-      "Bug Tracking"
-    ]
-  },
-  {
-    id: "frontend_react",
-    role_title: "Frontend Engineer (React)",
-    category: "Development (Frontend)",
-    icon: Code,
-    focus: "Building user interfaces and single-page applications (SPAs) using the React ecosystem.",
-    progression: [
-      "Junior React Developer",
-      "React Developer",
-      "Senior React Developer / Frontend Architect"
-    ],
-    key_skills: [
-      "React.js, Hooks, Redux/Context",
-      "JavaScript (ES6+), JSX",
-      "State Management",
-      "Component Libraries",
-      "Webpack/Vite"
-    ]
-  },
-  {
-    id: "frontend_angular",
-    role_title: "Frontend Engineer (Angular)",
-    category: "Development (Frontend)",
-    icon: Code,
-    focus: "Building large-scale enterprise applications using the Angular framework and TypeScript.",
-    progression: [
-      "Junior Angular Developer",
-      "Angular Developer",
-      "Senior Angular Developer / Enterprise Frontend Architect"
-    ],
-    key_skills: [
-      "Angular (TypeScript-based)",
-      "RxJS & Observables",
-      "Angular CLI",
-      "Module and Component Architecture",
-      "NgRx/State Management"
-    ]
-  },
-  {
-    id: "backend_nodejs",
-    role_title: "Backend Engineer (Node.js)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Creating fast, scalable server-side applications, APIs, and microservices using JavaScript/TypeScript on the Node.js runtime.",
-    progression: [
-      "Junior Node.js Developer",
-      "Node.js Developer",
-      "Senior Node.js Developer / Backend Services Lead"
-    ],
-    key_skills: [
-      "Node.js, Express/NestJS",
-      "Asynchronous Programming",
-      "REST/GraphQL API Design",
-      "MongoDB/PostgreSQL",
-      "Microservices"
-    ]
-  },
-  {
-    id: "backend_dotnet",
-    role_title: "Backend Engineer (.NET)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Building robust, enterprise-grade applications, often in Windows/Azure environments, using the .NET framework (C#).",
-    progression: [
-      "Junior .NET Developer",
-      ".NET Developer",
-      "Senior .NET Developer / Solutions Architect"
-    ],
-    key_skills: [
-      ".NET Core/Framework, C#",
-      "ASP.NET MVC/Web API",
-      "Entity Framework (ORM)",
-      "SQL Server/Database Access",
-      "Azure Services"
-    ]
-  },
-  {
-    id: "backend_python",
-    role_title: "Backend/Data Engineer (Python)",
-    category: "Development (Backend/Data)",
-    icon: Database,
-    focus: "Developing server logic, scripting, data pipelines, and machine learning integration using the versatile Python language.",
-    progression: [
-      "Junior Python Developer",
-      "Python Engineer (Django/Flask)",
-      "Senior Data Engineer / ML Engineer"
-    ],
-    key_skills: [
-      "Python (Core)",
-      "Frameworks (Django/Flask)",
-      "Data Libraries (Pandas, NumPy)",
-      "API Development",
-      "Scripting & Automation"
-    ]
-  },
-  {
-    id: "backend_go",
-    role_title: "Backend Engineer (Go/Golang)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Building highly performant, concurrent, and scalable systems, often for cloud infrastructure, microservices, and network programming.",
-    progression: [
-      "Junior Go Developer",
-      "Go Engineer",
-      "Senior Go Developer / Distributed Systems Engineer"
-    ],
-    key_skills: [
-      "Go Language (Golang)",
-      "Concurrency & Goroutines",
-      "Microservices Architecture",
-      "API Development (gRPC, REST)",
-      "Performance Optimization"
-    ]
-  },
-  {
-    id: "backend_java",
-    role_title: "Backend Engineer (Java)",
-    category: "Development (Backend)",
-    icon: Database,
-    focus: "Developing large, reliable, and scalable enterprise applications, especially within the financial and big data sectors.",
-    progression: [
-      "Junior Java Developer",
-      "Java Developer",
-      "Senior Java Engineer / Enterprise Architect"
-    ],
-    key_skills: [
-      "Java (Core & EE/Spring)",
-      "Spring Framework (Boot, MVC, Security)",
-      "Object-Oriented Design (OOD)",
-      "JPA/Hibernate",
-      "Microservices/Cloud"
-    ]
-  }
-];
+const careerPaths = careerPathsData;
+const careerIcons: Record<string, LucideIcon> = {
+  Code,
+  Database,
+  Palette,
+  Target,
+  TestTube,
+  Users,
+};
+
+const CareerIcon = ({ name, className }: { name: string; className: string }) => {
+  const Icon = careerIcons[name];
+  return <Icon className={className} />;
+};
 
 const categories = [...new Set(careerPaths.map(path => path.category))];
 
@@ -274,7 +74,7 @@ const CareerGuidance = () => {
         {!selectedCareer ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPaths.map((career) => {
-              const Icon = career.icon;
+              const Icon = careerIcons[career.icon];
               return (
                 <Card 
                   key={career.id}
@@ -323,7 +123,7 @@ const CareerGuidance = () => {
               <CardHeader className="bg-primary/5 border-b border-border">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <selectedCareer.icon className="h-8 w-8 text-primary" />
+                    <CareerIcon name={selectedCareer.icon} className="h-8 w-8 text-primary" />
                   </div>
                   <div>
                     <Badge variant="secondary" className="mb-2">

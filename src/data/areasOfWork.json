@@ -1,0 +1,57 @@
+[
+  {
+    "icon": "Heart",
+    "title": "Islamic Studies",
+    "description": "Scholarly research and discourse on Islamic principles and contemporary applications."
+  },
+  {
+    "icon": "Users",
+    "title": "Society",
+    "description": "Building stronger communities through social research and development initiatives."
+  },
+  {
+    "icon": "BookOpen",
+    "title": "Education",
+    "description": "Advancing educational methodologies and promoting academic excellence."
+  },
+  {
+    "icon": "Palette",
+    "title": "Cultural Establishment",
+    "description": "Preserving and promoting cultural heritage through research and community programs."
+  },
+  {
+    "icon": "Cpu",
+    "title": "Science & Technology",
+    "description": "Cutting-edge research in emerging technologies and scientific innovations."
+  },
+  {
+    "icon": "Lightbulb",
+    "title": "Problem Solving",
+    "description": "Developing innovative solutions to complex academic and social challenges."
+  },
+  {
+    "icon": "Wrench",
+    "title": "System Optimization",
+    "description": "Improving efficiency in educational and organizational systems."
+  },
+  {
+    "icon": "Globe",
+    "title": "Social Responsibility",
+    "description": "Promoting ethical practices and community engagement initiatives."
+  },
+  {
+    "icon": "MapPin",
+    "title": "Geographical Research",
+    "description": "Exploring geographical and historical perspectives for academic insight."
+  },
+  {
+    "icon": "Building",
+    "title": "International Relations",
+    "description": "Analyzing global affairs and diplomatic relations for academic understanding."
+  },
+  {
+    "icon": "RefreshCw",
+    "title": "Reconstruction Systems",
+    "description": "Developing frameworks for sustainable development and social reconstruction."
+  }
+]

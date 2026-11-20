@@ -1,0 +1,34 @@
+{
+  "navigation": [
+    {
+      "name": "Home",
+      "href": "/#home"
+    },
+    {
+      "name": "Areas of Impact",
+      "href": "/#areas"
+    },
+    {
+      "name": "Knowledge",
+      "href": "/explore-knowledge"
+    },
+    {
+      "name": "Research",
+      "href": "/research-publications"
+    },
+    {
+      "name": "Career Guidance",
+      "href": "/career-guidance"
+    }
+  ],
+  "missionAreas": [
+    "Knowledge Sharing",
+    "Research & Development",
+    "Career Guidance",
+    "Educational Excellence",
+    "Intellectual Activities",
+    "Social Responsibility",
+    "Technology Innovation",
+    "International Relations"
+  ]
+}

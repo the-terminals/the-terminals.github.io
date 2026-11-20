@@ -2,15 +2,9 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
+import siteData from "@/data/site.json";
 
-export const navItems = [
-  { name: "Home", href: "/#home" },
-  { name: "Areas of Impact", href: "/#areas" },
-  { name: "Our Work", href: "/#our-work" },
-  { name: "Knowledge", href: "/explore-knowledge" },
-  { name: "Research", href: "/research-publications" },
-  { name: "Career Guidance", href: "/career-guidance" },
-];
+export const navItems = siteData.navigation;
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

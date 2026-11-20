@@ -1,0 +1,30 @@
+[
+  {
+    "icon": "FileText",
+    "title": "Research & Publications",
+    "description": "Explore our latest research papers and academic publications.",
+    "action": "Browse Research",
+    "href": "/research-publications"
+  },
+  {
+    "icon": "BookOpen",
+    "title": "Knowledge Sharing",
+    "description": "Share insights, ideas, and educational resources with our community.",
+    "action": "Explore Knowledge",
+    "href": "/explore-knowledge"
+  },
+  {
+    "icon": "Brain",
+    "title": "Intellectual Activities",
+    "description": "Engage in thought-provoking discussions and intellectual pursuits.",
+    "action": "Join Activities",
+    "href": "#activities"
+  },
+  {
+    "icon": "Mail",
+    "title": "Career Guidance",
+    "description": "Access personalized consultancy and career development resources.",
+    "action": "Get Guidance",
+    "href": "/career-guidance"
+  }
+]
