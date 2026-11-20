@@ -1,101 +1,66 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
-import { Button } from "./ui/button";
+
+export const navItems = [
+  { name: "Home", href: "/#home" },
+  { name: "Areas of Impact", href: "/#areas" },
+  { name: "Our Work", href: "/#our-work" },
+  { name: "Knowledge", href: "/explore-knowledge" },
+  { name: "Research", href: "/research-publications" },
+  { name: "Career Guidance", href: "/career-guidance" },
+];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { pathname } = useLocation();
 
-  const navItems = [
-    { name: "Home", href: "/#home", isRoute: true },
-    { name: "Areas of Impact", href: "/#areas", isRoute: true },
-    { name: "Knowledge", href: "/#knowledge", isRoute: true },
-    { name: "Research", href: "/research-publications", isRoute: true },
-    { name: "Quick Access", href: "/#quick-access", isRoute: true },
-  ];
+  const isActive = (href: string) => !href.startsWith("/#") && pathname === href;
+  const linkClass = (href: string) =>
+    `nav-link text-sm font-medium ${isActive(href) ? "text-primary" : ""}`;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Logo className="flex-shrink-0" />
+          <Link to="/" className="flex-shrink-0">
+            <Logo />
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
-              item.isRoute ? (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="nav-link text-sm font-medium"
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="nav-link text-sm font-medium"
-                >
-                  {item.name}
-                </a>
-              )
+              <Link key={item.name} to={item.href} className={linkClass(item.href)}>
+                {item.name}
+              </Link>
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              Get Involved
-            </Button>
-          </div>
-
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="lg:hidden py-4 border-t border-border">
             <nav className="flex flex-col space-y-3">
               {navItems.map((item) => (
-                item.isRoute ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="nav-link text-sm font-medium py-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="nav-link text-sm font-medium py-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                )
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`${linkClass(item.href)} py-2`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
               ))}
-              <div className="pt-4">
-                <Button variant="outline" size="sm" className="w-full">
-                  Get Involved
-                </Button>
-              </div>
             </nav>
           </div>
         )}

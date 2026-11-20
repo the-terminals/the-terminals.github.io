@@ -4,6 +4,8 @@ import { ArrowLeft, Briefcase, Code, Database, Palette, TestTube, TrendingUp, Ch
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const careerPaths = [
   {
@@ -233,23 +235,9 @@ const CareerGuidance = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b border-border sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft className="h-5 w-5" />
-              <span>Back to Home</span>
-            </Link>
-            <div className="flex items-center gap-2">
-              <Briefcase className="h-6 w-6 text-primary" />
-              <span className="font-display font-bold text-xl">Career Guidance</span>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
@@ -417,6 +405,7 @@ const CareerGuidance = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

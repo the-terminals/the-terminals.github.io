@@ -10,7 +10,7 @@ const QuickLinks = () => {
       title: "Research & Publications",
       description: "Explore our latest research papers and academic publications.",
       action: "Browse Research",
-      href: "#research",
+      href: "/research-publications",
     },
     {
       icon: BookOpen,

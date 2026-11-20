@@ -122,7 +122,7 @@ const ExploreKnowledge = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="py-8">
+      <main className="pt-24 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header with back button */}
           <div className="flex items-center gap-4 mb-8">
