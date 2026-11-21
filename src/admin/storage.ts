@@ -36,3 +36,14 @@ export async function uploadImage(file: File): Promise<string> {
   if (!res.ok) throw new Error(body.error || "Upload failed");
   return body.path;
 }
+
+/** Saves a book PDF into public/pdfs/books and returns its site path. */
+export async function uploadPdf(file: File): Promise<string> {
+  const res = await fetch(`/__admin/pdfs?name=${encodeURIComponent(file.name)}`, {
+    method: "POST",
+    body: file,
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.error || "Upload failed");
+  return body.path;
+}

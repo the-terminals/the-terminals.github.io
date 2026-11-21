@@ -2,9 +2,10 @@
   "books": [
     {
       "id": 1,
-      "title": "তাফসীর : তাওযীহুল কুরআন",
+      "title": "আহকামে জিন্দেগী",
       "author": "আল্লামা মুহাম্মদ তাকী উসমানী",
-      "image": "book-quran.jpg"
+      "image": "/images/books/cover.jpg",
+      "pdf": "/pdfs/books/ahkame-jindegi.pdf"
     },
     {
       "id": 2,

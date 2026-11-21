@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ImagePlus, Loader2, Search, Upload } from "lucide-react";
+import { FileText, ImagePlus, Loader2, Search, Upload, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,19 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import BookCard, { type Book } from "@/components/cards/BookCard";
+import { BookPdfActions, BookPdfDialog } from "@/components/BookPdfPreview";
 import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 import { useJsonFile } from "./useJsonFile";
-import { uploadImage } from "./storage";
+import { uploadImage, uploadPdf } from "./storage";
 import { ConfirmRemove, LoadState, PageHeader, RowActions } from "./AdminParts";
 
 type KnowledgeFile = { books: Book[] } & Record<string, unknown>;
 
-const fileName = (image: string) => image.split("/").pop() || image;
+const fileName = (path: string) => path.split("/").pop() || path;
 
 const BooksAdmin = () => {
   const { data, loading, saving, error, reload, save: saveFile } = useJsonFile<KnowledgeFile>("knowledge.json");
   const [editing, setEditing] = useState<{ isNew: boolean; value: Book } | null>(null);
   const [preview, setPreview] = useState<Book | null>(null);
+  const [previewPdf, setPreviewPdf] = useState<Book | null>(null);
   const [removing, setRemoving] = useState<Book | null>(null);
   const [query, setQuery] = useState("");
 
@@ -28,6 +30,10 @@ const BooksAdmin = () => {
   const [uploading, setUploading] = useState(false);
   const [dragging, setDragging] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  // PDF upload
+  const [uploadingPdf, setUploadingPdf] = useState(false);
+  const pdfInput = useRef<HTMLInputElement>(null);
 
   // free the temporary preview URL when it is replaced or the form closes
   useEffect(() => {
@@ -92,6 +98,37 @@ const BooksAdmin = () => {
     if (!uploading && !saving) fileInput.current?.click();
   };
 
+  const handlePdfFile = async (file: File | undefined) => {
+    if (!file) return;
+    if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+      toast.error("Please choose a PDF file.");
+      return;
+    }
+    setUploadingPdf(true);
+    try {
+      const path = await uploadPdf(file);
+      setField("pdf", path);
+      toast.success(`PDF saved to public${path}`);
+    } catch (err) {
+      toast.error((err as Error).message);
+    } finally {
+      setUploadingPdf(false);
+    }
+  };
+
+  const onPdfChosen = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    handlePdfFile(file);
+  };
+
+  const openPdfPicker = () => {
+    if (!uploadingPdf && !saving) pdfInput.current?.click();
+  };
+
+  const clearPdf = () =>
+    setEditing((prev) => (prev ? { ...prev, value: { ...prev.value, pdf: undefined } } : prev));
+
   const save = async () => {
     if (!editing) return;
     const value = {
@@ -149,8 +186,10 @@ const BooksAdmin = () => {
                   <p className="font-medium text-foreground truncate">{book.title}</p>
                   <p className="text-sm text-muted-foreground truncate">
                     {book.author} · #{book.id}
+                    {book.pdf ? " · PDF" : " · No PDF"}
                   </p>
                 </div>
+                <BookPdfActions book={book} onPreview={() => setPreviewPdf(book)} />
                 <RowActions
                   onPreview={() => setPreview(book)}
                   onEdit={() => openEditor(book, false)}
@@ -169,7 +208,7 @@ const BooksAdmin = () => {
       )}
 
       {/* Add / edit */}
-      <Dialog open={!!editing} onOpenChange={(o) => !o && !saving && !uploading && closeEditor()}>
+      <Dialog open={!!editing} onOpenChange={(o) => !o && !saving && !uploading && !uploadingPdf && closeEditor()}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing?.isNew ? "Add book" : "Edit book"}</DialogTitle>
@@ -224,6 +263,54 @@ const BooksAdmin = () => {
                   />
                   <p className="text-xs text-muted-foreground">
                     JPG, PNG, WebP or GIF, up to 5 MB. Saved in public/images/books.
+                  </p>
+                </div>
+                <div className="grid gap-1.5">
+                  <Label htmlFor="book-pdf">Book PDF</Label>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      id="book-pdf"
+                      type="button"
+                      variant="outline"
+                      onClick={openPdfPicker}
+                      disabled={uploadingPdf || saving}
+                      className="shrink-0"
+                    >
+                      {uploadingPdf ? (
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      ) : (
+                        <Upload className="h-4 w-4 mr-2" />
+                      )}
+                      {uploadingPdf ? "Uploading…" : "Upload PDF"}
+                    </Button>
+                    <span className="text-sm text-muted-foreground truncate flex items-center gap-1">
+                      {editing.value.pdf && <FileText className="h-4 w-4 shrink-0" />}
+                      {editing.value.pdf ? fileName(editing.value.pdf) : "No PDF yet"}
+                    </span>
+                    {editing.value.pdf && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={clearPdf}
+                        disabled={saving}
+                        title="Remove PDF"
+                        className="shrink-0 text-destructive hover:text-destructive"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                  <input
+                    ref={pdfInput}
+                    type="file"
+                    accept="application/pdf"
+                    className="hidden"
+                    onChange={onPdfChosen}
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    PDF up to 50 MB. Saved in public/pdfs/books and offered as a preview, new tab and download on
+                    the site.
                   </p>
                 </div>
               </div>
@@ -284,10 +371,10 @@ const BooksAdmin = () => {
             </div>
           )}
           <DialogFooter>
-            <Button variant="ghost" onClick={closeEditor} disabled={saving || uploading}>
+            <Button variant="ghost" onClick={closeEditor} disabled={saving || uploading || uploadingPdf}>
               Cancel
             </Button>
-            <Button onClick={save} disabled={!valid || saving || uploading}>
+            <Button onClick={save} disabled={!valid || saving || uploading || uploadingPdf}>
               {saving ? "Saving…" : "Save"}
             </Button>
           </DialogFooter>
@@ -300,9 +387,32 @@ const BooksAdmin = () => {
           <DialogHeader>
             <DialogTitle>Preview</DialogTitle>
           </DialogHeader>
-          {preview && <BookCard book={preview} />}
+          {preview && (
+            <>
+              <BookCard book={preview} />
+              {preview.pdf && (
+                <div className="flex flex-col gap-2">
+                  <BookPdfActions
+                    book={preview}
+                    onPreview={() => setPreviewPdf(preview)}
+                    className="justify-center"
+                  />
+                  <p className="text-center text-xs text-muted-foreground">
+                    Preview the PDF, open it in a new tab or download it.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </DialogContent>
       </Dialog>
+
+      <BookPdfDialog
+        open={!!previewPdf}
+        onOpenChange={(o) => !o && setPreviewPdf(null)}
+        title={previewPdf?.title ?? ""}
+        pdf={previewPdf?.pdf}
+      />
 
       <ConfirmRemove
         name={removing?.title ?? ""}

@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { ArrowLeft, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { BookPdfActions, BookPdfDialog } from "@/components/BookPdfPreview";
+import type { Book } from "@/components/cards/BookCard";
 import knowledgeData from "@/data/knowledge.json";
 import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 
 const ExploreKnowledge = () => {
-  const { books } = knowledgeData;
+  const books = knowledgeData.books as Book[];
+  const [previewPdf, setPreviewPdf] = useState<Book | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,15 +66,15 @@ const ExploreKnowledge = () => {
                     </div>
                   </div>
                   
-                  <CardContent className="p-4">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
-                    >
-                      Read More
-                    </Button>
-                  </CardContent>
+                  {book.pdf && (
+                    <CardContent className="p-3">
+                      <BookPdfActions
+                        book={book}
+                        onPreview={() => setPreviewPdf(book)}
+                        className="justify-center"
+                      />
+                    </CardContent>
+                  )}
                 </Card>
               ))}
             </div>
@@ -78,6 +82,13 @@ const ExploreKnowledge = () => {
         </div>
       </main>
       <Footer />
+
+      <BookPdfDialog
+        open={!!previewPdf}
+        onOpenChange={(o) => !o && setPreviewPdf(null)}
+        title={previewPdf?.title ?? ""}
+        pdf={previewPdf?.pdf}
+      />
     </div>
   );
 };

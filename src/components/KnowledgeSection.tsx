@@ -1,12 +1,16 @@
-import { BookOpen } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
+import { useState } from "react";
+import { BookOpen, Eye } from "lucide-react";
+import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import { BookPdfDialog } from "@/components/BookPdfPreview";
+import type { Book } from "@/components/cards/BookCard";
 import knowledgeData from "@/data/knowledge.json";
 import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 
 const KnowledgeSection = () => {
-  const books = knowledgeData.books.slice(0, 8);
+  const books = (knowledgeData.books as Book[]).slice(0, 8);
+  const [previewPdf, setPreviewPdf] = useState<Book | null>(null);
 
   return (
     <section id="knowledge" className="py-20 bg-muted/30">
@@ -32,7 +36,15 @@ const KnowledgeSection = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
             {books.map((book) => (
               <Card key={book.id} className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                <div className="aspect-[3/4] relative overflow-hidden">
+                <button
+                  type="button"
+                  disabled={!book.pdf}
+                  onClick={() => book.pdf && setPreviewPdf(book)}
+                  title={book.pdf ? `Preview ${book.title}` : undefined}
+                  className={`relative block aspect-[3/4] w-full overflow-hidden text-left ${
+                    book.pdf ? "cursor-pointer" : "cursor-default"
+                  }`}
+                >
                   <img
                     src={resolveKnowledgeImage(book.image)}
                     alt={book.title}
@@ -40,14 +52,19 @@ const KnowledgeSection = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-2 left-2 right-2">
-                    <h4 className="text-white font-semibold text-xs mb-0.5 line-clamp-2">
+                    <span className="block text-white font-semibold text-xs mb-0.5 line-clamp-2">
                       {book.title}
-                    </h4>
-                    <p className="text-white/80 text-[10px] line-clamp-1">
+                    </span>
+                    <span className="block text-white/80 text-[10px] line-clamp-1">
                       {book.author}
-                    </p>
+                    </span>
                   </div>
-                </div>
+                  {book.pdf && (
+                    <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100">
+                      <Eye className="h-6 w-6" />
+                    </span>
+                  )}
+                </button>
               </Card>
             ))}
           </div>
@@ -59,6 +76,13 @@ const KnowledgeSection = () => {
           </div>
         </div>
       </div>
+
+      <BookPdfDialog
+        open={!!previewPdf}
+        onOpenChange={(o) => !o && setPreviewPdf(null)}
+        title={previewPdf?.title ?? ""}
+        pdf={previewPdf?.pdf}
+      />
     </section>
   );
 };

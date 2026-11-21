@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 
-export type Book = { id: number; title: string; author: string; image: string };
+export type Book = { id: number; title: string; author: string; image: string; pdf?: string };
 
 const BookCard = ({ book }: { book: Book }) => (
   <Card className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
