@@ -3,9 +3,10 @@ import fs from "fs";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+import { fetchPlaylist, PlaylistError } from "./server/youtubePlaylist";
 
 // Dev-only endpoint used by /super-admin to read and write src/data/*.json
-const ADMIN_FILES = ["areasOfWork.json", "knowledge.json"];
+const ADMIN_FILES = ["areasOfWork.json", "knowledge.json", "playlists.json"];
 const IMAGE_EXT = /\.(jpe?g|png|webp|gif)$/i;
 const PDF_EXT = /\.pdf$/i;
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
@@ -142,6 +143,28 @@ const localAdminApi = (): Plugin => ({
         maxLabel: "50 MB",
       }),
     );
+
+    // YouTube playlist lookup: POST {"url": "..."} -> { playlistId, title, videos[] }
+    server.middlewares.use("/__admin/youtube-playlist", (req, res, next) => {
+      if (req.method !== "POST") return next();
+      const send = (status: number, body: unknown) => {
+        res.statusCode = status;
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.end(JSON.stringify(body));
+      };
+      const chunks: Buffer[] = [];
+      req.on("data", (c: Buffer) => chunks.push(c));
+      req.on("end", async () => {
+        try {
+          const { url } = JSON.parse(Buffer.concat(chunks).toString("utf8") || "{}");
+          send(200, await fetchPlaylist(url));
+        } catch (e) {
+          const message = e instanceof PlaylistError ? e.message : "Could not load this playlist.";
+          if (!(e instanceof PlaylistError)) console.error("[youtube-playlist]", e);
+          send(400, { error: message });
+        }
+      });
+    });
   },
 });
 

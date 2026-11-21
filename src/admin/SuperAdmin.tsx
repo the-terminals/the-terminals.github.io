@@ -1,13 +1,15 @@
 import { useEffect } from "react";
 import { Link, Navigate, NavLink, Route, Routes } from "react-router-dom";
-import { BookOpen, ExternalLink, LayoutGrid } from "lucide-react";
+import { BookOpen, ExternalLink, LayoutGrid, ListVideo } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AreasAdmin from "./AreasAdmin";
 import BooksAdmin from "./BooksAdmin";
+import PlaylistsAdmin from "./PlaylistsAdmin";
 
 const menu = [
   { to: "areas", label: "Areas of Impact", icon: LayoutGrid },
   { to: "books", label: "Books", icon: BookOpen },
+  { to: "playlists", label: "Playlists", icon: ListVideo },
 ];
 
 /**
@@ -63,6 +65,7 @@ const SuperAdmin = () => {
             <Route index element={<Navigate to="areas" replace />} />
             <Route path="areas" element={<AreasAdmin />} />
             <Route path="books" element={<BooksAdmin />} />
+            <Route path="playlists" element={<PlaylistsAdmin />} />
             <Route path="*" element={<Navigate to="areas" replace />} />
           </Routes>
         </main>

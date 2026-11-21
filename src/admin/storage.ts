@@ -4,7 +4,7 @@
  * so it only works while `npm run dev` is running. Commit and push the changed files yourself.
  */
 
-export type DataFile = "areasOfWork.json" | "knowledge.json";
+export type DataFile = "areasOfWork.json" | "knowledge.json" | "playlists.json";
 
 export async function loadFile<T>(file: DataFile): Promise<T> {
   const res = await fetch(`/__admin/data/${file}`, { cache: "no-store" });
@@ -46,4 +46,22 @@ export async function uploadPdf(file: File): Promise<string> {
   const body = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(body.error || "Upload failed");
   return body.path;
+}
+
+export type FetchedPlaylist = {
+  playlistId: string;
+  title: string;
+  videos: { videoId: string; title: string; duration?: string; isValid: boolean }[];
+};
+
+/** Asks the dev server to read every video of a YouTube playlist. */
+export async function fetchYoutubePlaylist(url: string): Promise<FetchedPlaylist> {
+  const res = await fetch("/__admin/youtube-playlist", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url }),
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(body.error || "Could not load this playlist.");
+  return body;
 }

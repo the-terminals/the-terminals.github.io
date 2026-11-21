@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import ExploreKnowledge from "./pages/ExploreKnowledge";
 import CareerGuidance from "./pages/CareerGuidance";
 import ResearchPublications from "./pages/ResearchPublications";
+import Playlists from "./pages/Playlists";
 import NotFound from "./pages/NotFound";
 import ScrollManager from "./components/ScrollManager";
 // Local-only admin: exists during `npm run dev`, left out of the live build
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/explore-knowledge" element={<ExploreKnowledge />} />
           <Route path="/career-guidance" element={<CareerGuidance />} />
           <Route path="/research-publications" element={<ResearchPublications />} />
+          <Route path="/playlists" element={<Playlists />} />
           {SuperAdmin && (
             <Route
               path="/super-admin/*"
