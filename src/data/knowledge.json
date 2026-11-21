@@ -4,28 +4,28 @@
       "id": 1,
       "title": "আহকামে যিন্দেগী",
       "author": "মাওলানা মুহাম্মদ হেমায়েত উদ্দীন",
-      "image": "/images/books/techwithtrofderbanner.jpg",
+      "image": "/images/books/ahkame-jindegi.jpg",
       "pdf": "/pdfs/books/ahkame-jindegi.pdf"
     },
     {
       "id": 2,
       "title": "আসহাবে রাসূলের জীবনকথা",
       "author": "ড. মুহাম্মদ আবদুল মা'বুদ",
-      "image": "book-hadith.jpg",
+      "image": "/images/books/ashabe-rasuler-jibon-kotha.png",
       "pdf": "/pdfs/books/ashabe-rasuler_jibon_kotha.pdf"
     },
     {
       "id": 3,
       "title": "বাংলাদেশ ও ইসলাম: আত্মপরিচয়ের ডিসকোর্স",
       "author": "মুসা আল হাফিজ",
-      "image": "book-sirah.jpg",
+      "image": "/images/books/bangladesh-and-islam-discourses-of-self-identity.png",
       "pdf": "/pdfs/books/bangladesh-and-islam-discourses-of-self-identity.pdf"
     },
     {
       "id": 4,
       "title": "বাঙালি মুসলমানের জাতিসত্তার বিকাশ",
       "author": "ডা. শামসুল আরেফীন",
-      "image": "book-fiqh.jpg",
+      "image": "/images/books/why-sharia-rule-is-better-than-democratic-rule-1.jpg",
       "pdf": "/pdfs/books/development-of-bengali-muslim-ethnicity.pdf"
     },
     {
