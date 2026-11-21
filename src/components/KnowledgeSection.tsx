@@ -1,8 +1,9 @@
 import { BookOpen } from "lucide-react";
+import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import knowledgeData from "@/data/knowledge.json";
-import BookCard from "./cards/BookCard";
+import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 
 const KnowledgeSection = () => {
   const books = knowledgeData.books.slice(0, 8);
@@ -30,7 +31,24 @@ const KnowledgeSection = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
             {books.map((book) => (
-              <BookCard key={book.id} book={book} />
+              <Card key={book.id} className="group border-0 shadow-elegant overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                <div className="aspect-[3/4] relative overflow-hidden">
+                  <img
+                    src={resolveKnowledgeImage(book.image)}
+                    alt={book.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <h4 className="text-white font-semibold text-xs mb-0.5 line-clamp-2">
+                      {book.title}
+                    </h4>
+                    <p className="text-white/80 text-[10px] line-clamp-1">
+                      {book.author}
+                    </p>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
 

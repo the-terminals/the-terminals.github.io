@@ -18,8 +18,4 @@ const knowledgeImages: Record<string, string> = {
   "book-spirituality.jpg": bookSpirituality,
 };
 
-export const knowledgeImageOptions = Object.keys(knowledgeImages);
-
-/** Bundled image name (e.g. "book-quran.jpg") or a full image URL. */
-export const resolveKnowledgeImage = (image: string) =>
-  knowledgeImages[image] ?? (image || "/placeholder.svg");
+export const resolveKnowledgeImage = (image: string) => knowledgeImages[image];
