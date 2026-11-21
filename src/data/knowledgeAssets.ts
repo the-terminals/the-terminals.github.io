@@ -18,4 +18,11 @@ const knowledgeImages: Record<string, string> = {
   "book-spirituality.jpg": bookSpirituality,
 };
 
-export const resolveKnowledgeImage = (image: string) => knowledgeImages[image];
+/**
+ * Turns a book's "image" value into something an <img> can load:
+ *  - one of the bundled covers above, e.g. "book-quran.jpg"
+ *  - an uploaded cover in public/, e.g. "/images/books/cover.jpg"
+ *  - a full URL
+ */
+export const resolveKnowledgeImage = (image: string) =>
+  knowledgeImages[image] ?? (image || "/placeholder.svg");

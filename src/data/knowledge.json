@@ -2,304 +2,115 @@
   "books": [
     {
       "id": 1,
-      "title": "আহকামে জিন্দেগী",
-      "author": "আল্লামা মুহাম্মদ তাকী উসমানী",
-      "image": "/images/books/cover.jpg",
+      "title": "আহকামে যিন্দেগী",
+      "author": "মাওলানা মুহাম্মদ হেমায়েত উদ্দীন",
+      "image": "/images/books/techwithtrofderbanner.jpg",
       "pdf": "/pdfs/books/ahkame-jindegi.pdf"
     },
     {
       "id": 2,
-      "title": "হাদীস : রিয়াদুস সালেহীন",
-      "author": "ইমাম মুহিউদ্দীন ইয়াহইয়া আন-নববী",
-      "image": "book-hadith.jpg"
+      "title": "আসহাবে রাসূলের জীবনকথা",
+      "author": "ড. মুহাম্মদ আবদুল মা'বুদ",
+      "image": "book-hadith.jpg",
+      "pdf": "/pdfs/books/ashabe-rasuler_jibon_kotha.pdf"
     },
     {
       "id": 3,
-      "title": "সীরাত : সীরাহ - রেইনড্রপস",
-      "author": "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর",
-      "image": "book-sirah.jpg"
+      "title": "বাংলাদেশ ও ইসলাম: আত্মপরিচয়ের ডিসকোর্স",
+      "author": "মুসা আল হাফিজ",
+      "image": "book-sirah.jpg",
+      "pdf": "/pdfs/books/bangladesh-and-islam-discourses-of-self-identity.pdf"
     },
     {
       "id": 4,
-      "title": "নবিদের কাহিনি (১,২)",
-      "author": "মুহাম্মদ আসাদুল্লাহ আল-গালিব",
-      "image": "book-fiqh.jpg"
+      "title": "বাঙালি মুসলমানের জাতিসত্তার বিকাশ",
+      "author": "ডা. শামসুল আরেফীন",
+      "image": "book-fiqh.jpg",
+      "pdf": "/pdfs/books/development-of-bengali-muslim-ethnicity.pdf"
     },
     {
       "id": 5,
-      "title": "আসহাবে রাসূলের জীবনকথা",
-      "author": "ড. মুহাম্মদ আবদুল মা'বুদ",
-      "image": "book-aqeedah.jpg"
+      "title": "মতবিরোধপূর্ণ বিষয়ে সঠিক পন্থা অবলম্বনের উপায়",
+      "author": "ইমাম শাহ ওয়ালিউল্লাহ মুহাদ্দিস দেহলভী",
+      "image": "book-aqeedah.jpg",
+      "pdf": "/pdfs/books/how-to-approach-controversial-issues-correctly.pdf"
     },
     {
       "id": 6,
-      "title": "সংগ্রামী সাধকদের ইতিহাস",
-      "author": "সাইয়েদ আবুল হাসান আলী নদভী",
-      "image": "book-ethics.jpg"
+      "title": "বাংলাদেশে ইসলাম",
+      "author": "আব্দুল মান্নান তালিব",
+      "image": "book-ethics.jpg",
+      "pdf": "/pdfs/books/islam-in-bangladesh.pdf"
     },
     {
       "id": 7,
-      "title": "ইসলামের বুনিয়াদী শিক্ষা",
-      "author": "সাইয়েদ আবুল আ'লা মওদুদী",
-      "image": "book-history.jpg"
+      "title": "ইসলামী অর্থনীতি",
+      "author": "মাওলানা মুহাম্মাদ আব্দুর রহিম (রহঃ)",
+      "image": "book-history.jpg",
+      "pdf": "/pdfs/books/islamic-economy.pdf"
     },
     {
       "id": 8,
-      "title": "ঈমান সবার আগে",
-      "author": "মাওলানা মুহাম্মদ আবদুল মালেক",
-      "image": "book-spirituality.jpg"
+      "title": "খোলাসাতুল কুরআন",
+      "author": "মাওলানা মুহাম্মদ আসলাম শেখুপুরী",
+      "image": "book-spirituality.jpg",
+      "pdf": "/pdfs/books/khorasatul-quran.pdf"
     },
     {
       "id": 9,
-      "title": "আকীদা : ইসলামী আকীদা",
-      "author": "ড. খোন্দকার আবদুল্লাহ জাহাঙ্গীর",
-      "image": "book-quran.jpg"
+      "title": "লস্ট ইসলামিক হিস্টরি",
+      "author": "ফিরাস আল-খতিব",
+      "image": "book-quran.jpg",
+      "pdf": "/pdfs/books/lost-islamic-history.pdf"
     },
     {
       "id": 10,
-      "title": "ফিকহ : আহকামে যিন্দেগী",
-      "author": "মাওলানা মুহাম্মদ হেমায়েত উদ্দিন",
-      "image": "book-hadith.jpg"
+      "title": "আমার রমযান প্রস্তুতি",
+      "author": "তানজীল আরেফীন আদনান",
+      "image": "book-hadith.jpg",
+      "pdf": "/pdfs/books/my-ramadan-preparation.pdf"
     },
     {
       "id": 11,
-      "title": "ইসলামী জীবনব্যবস্থা",
-      "author": "মুফতি তারেকুজ্জামান",
-      "image": "book-sirah.jpg"
+      "title": "আগামীর বাংলাদেশের বড় চ্যালেঞ্জ: পশ্চিমা মূল্যবোধের আগ্রাসন",
+      "author": "ড. মোহাম্মদ সারোয়ার",
+      "image": "book-sirah.jpg",
+      "pdf": "/pdfs/books/next-bangladesh-big-challenge-invasion-of-western-values.pdf"
     },
     {
       "id": 12,
-      "title": "ইসলামে হালাল-হারামের বিধান",
-      "author": "আল্লামা ইউসুফ আল কারযাভী",
-      "image": "book-fiqh.jpg"
+      "title": "অবাধ্যতার ইতিহাস",
+      "author": "ডা. শামসুল আরেফীন",
+      "image": "book-fiqh.jpg",
+      "pdf": "/pdfs/books/obaddhotar-itihas.pdf"
     },
     {
       "id": 13,
-      "title": "কবীরা গুনাহ",
-      "author": "ইমাম শামসুদ্দিন আয্-যাহাবী",
-      "image": "book-aqeedah.jpg"
+      "title": "সীরাহ (প্রথম খণ্ড)",
+      "author": "রেইনড্রপস মিডিয়া",
+      "image": "book-aqeedah.jpg",
+      "pdf": "/pdfs/books/raindrops-sirah-1st-part.pdf"
     },
     {
       "id": 14,
-      "title": "ইসলামী শরীয়াতের উৎস",
-      "author": "মওলানা মুহাম্মদ আবদুর রহীম",
-      "image": "book-ethics.jpg"
+      "title": "সীরাহ (দ্বিতীয় খণ্ড)",
+      "author": "রেইনড্রপস মিডিয়া",
+      "image": "book-ethics.jpg",
+      "pdf": "/pdfs/books/raindrops-sirah-2nd-part.pdf"
     },
     {
       "id": 15,
-      "title": "মতবিরোধপূর্ণ বিষয়ে সঠিক পন্থা অবলম্বনের উপায়",
-      "author": "শাহ্ ওয়ালিউল্লাহ দেহলভী",
-      "image": "book-history.jpg"
+      "title": "রিয়াদুস সালেহীন",
+      "author": "ইমাম মুহিউদ্দীন ইয়াহইয়া আন-নববী (রহ.)",
+      "image": "book-history.jpg",
+      "pdf": "/pdfs/books/riyadus-salehin.pdf"
     },
     {
       "id": 16,
-      "title": "ইসলাম ও রাজনীতি",
-      "author": "আল্লামা মুহাম্মদ তাকী উসমানী",
-      "image": "book-spirituality.jpg"
-    },
-    {
-      "id": 17,
-      "title": "ইসলামী রাষ্ট্র ও সংবিধান",
-      "author": "সাইয়েদ আবুল আ'লা মওদুদী",
-      "image": "book-quran.jpg"
-    },
-    {
-      "id": 18,
-      "title": "আধুনিক যুগ ইসলাম: কৌশল ও কর্মসূচী",
-      "author": "আল্লামা ইউসুফ আল কারযাভী",
-      "image": "book-hadith.jpg"
-    },
-    {
-      "id": 19,
-      "title": "ইসলামের অর্থনীতি",
-      "author": "মওলানা মুহাম্মদ আবদুর রহীম",
-      "image": "book-sirah.jpg"
-    },
-    {
-      "id": 20,
-      "title": "মুমিনের পারিবারিক জীবন",
-      "author": "অধ্যাপক মুহাম্মদ ইউসুফ আলী",
-      "image": "book-fiqh.jpg"
-    },
-    {
-      "id": 21,
-      "title": "আদাবে জিন্দেগী",
-      "author": "আল্লামা ইউসুফ ইসলাহী",
-      "image": "book-aqeedah.jpg"
-    },
-    {
-      "id": 22,
-      "title": "রাহে বেলায়েত",
-      "author": "ড. খোন্দকার আবদুল্লাহ জাহাঙ্গীর",
-      "image": "book-ethics.jpg"
-    },
-    {
-      "id": 23,
-      "title": "এহইয়াউস সুনান",
-      "author": "ড. খোন্দকার আবদুল্লাহ জাহাঙ্গীর",
-      "image": "book-history.jpg"
-    },
-    {
-      "id": 24,
-      "title": "প্রচলিত ভুল",
-      "author": "মাওলানা মুহাম্মদ আবদুল মালেক",
-      "image": "book-spirituality.jpg"
-    },
-    {
-      "id": 25,
-      "title": "হাদীসের নামে জালিয়াতি",
-      "author": "ড. খোন্দকার আবদুল্লাহ জাহাঙ্গীর",
-      "image": "book-quran.jpg"
-    },
-    {
-      "id": 26,
-      "title": "ইসলামী সমাজ বিপ্লবের ধারা",
-      "author": "সাইয়েদ কুতুব",
-      "image": "book-hadith.jpg"
-    },
-    {
-      "id": 27,
-      "title": "ইসলামী বিপ্লব : পথ ও পদ্ধতি",
-      "author": "আহমদ আবদুল কাদের",
-      "image": "book-sirah.jpg"
-    },
-    {
-      "id": 28,
-      "title": "মুসলিম উম্মাহর পতনে বিশ্বের কি ক্ষতি হলো",
-      "author": "সাইয়েদ আবুল হাসান আলী নদভী",
-      "image": "book-fiqh.jpg"
-    },
-    {
-      "id": 29,
-      "title": "ইতিহাসের আয়নায় বর্তমান বিশ্বব্যবস্থা",
-      "author": "হেদায়াতুল্লাহ মেহমান্দ",
-      "image": "book-aqeedah.jpg"
-    },
-    {
-      "id": 30,
-      "title": "মুসলিম বিশ্বে ইসলাম ও পাশ্চাত্য সভ্যতার দ্বন্দ্ব",
-      "author": "সাইয়েদ আবুল হাসান আলী নদভী",
-      "image": "book-ethics.jpg"
-    },
-    {
-      "id": 31,
-      "title": "শিক্ষা সাহিত্য ও সংস্কৃতি",
-      "author": "মওলানা মুহাম্মদ আবদুর রহীম",
-      "image": "book-history.jpg"
-    },
-    {
-      "id": 32,
-      "title": "মুসলিম সংস্কৃতি ও বাঙালি মুসলমান",
-      "author": "ফাহমিদ-উর-রহমান",
-      "image": "book-spirituality.jpg"
-    },
-    {
-      "id": 33,
-      "title": "প্রোডাক্টিভ মুসলিম",
-      "author": "মোহাম্মদ ফারিস",
-      "image": "book-quran.jpg"
-    },
-    {
-      "id": 34,
-      "title": "দা ডিভাইন রিয়ালিটি",
-      "author": "হামজা জর্জিস",
-      "image": "book-hadith.jpg"
-    },
-    {
-      "id": 35,
-      "title": "অবাধ্যতার ইতিহাস",
+      "title": "গণতন্ত্রের চেয়ে শরীয়াহ শাসন কেন উত্তম",
       "author": "ডা. শামসুল আরেফীন",
-      "image": "book-sirah.jpg"
-    },
-    {
-      "id": 36,
-      "title": "ইসলাম ও পাশ্চাত্য সভ্যতার দ্বন্দ্ব",
-      "author": "সাইয়েদ আবুল আ'লা মওদুদী",
-      "image": "book-fiqh.jpg"
-    },
-    {
-      "id": 37,
-      "title": "বিংশ শতাব্দীর জাহেলিয়াত",
-      "author": "মুহাম্মদ কুতুব",
-      "image": "book-aqeedah.jpg"
-    },
-    {
-      "id": 38,
-      "title": "ইসলাম ও আধুনিকতা",
-      "author": "আল্লামা মুহাম্মদ তাকী উসমানী",
-      "image": "book-ethics.jpg"
-    },
-    {
-      "id": 39,
-      "title": "ভ্রান্তির বেড়াজালে ইসলাম",
-      "author": "মুহাম্মদ কুতুব",
-      "image": "book-history.jpg"
-    },
-    {
-      "id": 40,
-      "title": "ইসলাম ও অন্যান্য মতবাদ",
-      "author": "ড. মুহাম্মদ নুরুল ইসলাম",
-      "image": "book-spirituality.jpg"
-    },
-    {
-      "id": 41,
-      "title": "সুবহে সাদিক",
-      "author": "খুররম জাহ মুরাদ",
-      "image": "book-quran.jpg"
-    },
-    {
-      "id": 42,
-      "title": "কিতাবুয যুহদ",
-      "author": "ইমাম আহমাদ ইবনু হাম্বাল",
-      "image": "book-hadith.jpg"
-    },
-    {
-      "id": 43,
-      "title": "রুহের চিকিৎসা",
-      "author": "ইমাম ইবনে তাইমিয়া",
-      "image": "book-sirah.jpg"
-    },
-    {
-      "id": 44,
-      "title": "মুক্ত বাতাসের খোঁজে",
-      "author": "লস্ট মডেস্টি",
-      "image": "book-fiqh.jpg"
-    },
-    {
-      "id": 45,
-      "title": "পরকাল",
-      "author": "ড. মুহাম্মদ ইবনে আবদুর রহমান আরিফী",
-      "image": "book-aqeedah.jpg"
-    },
-    {
-      "id": 46,
-      "title": "মহাপ্রলয়",
-      "author": "ড. মুহাম্মদ ইবনে আবদুর রহমান আরিফী",
-      "image": "book-ethics.jpg"
-    },
-    {
-      "id": 47,
-      "title": "বাংলার মুসলমানদের ইতিহাস",
-      "author": "আব্বাস আলী খান",
-      "image": "book-history.jpg"
-    },
-    {
-      "id": 48,
-      "title": "লস্ট ইসলামিক হিস্ট্রি",
-      "author": "ফিরাস আল খতিব",
-      "image": "book-spirituality.jpg"
-    },
-    {
-      "id": 49,
-      "title": "আগামী দিনের সভ্যতা ইসলাম",
-      "author": "আল্লামা ইউসুফ আল কারযাভী",
-      "image": "book-quran.jpg"
-    },
-    {
-      "id": 50,
-      "title": "ইসলাম সভ্যতার শেষ ঠিকানা",
-      "author": "জিয়াউল হক",
-      "image": "book-hadith.jpg"
+      "image": "book-spirituality.jpg",
+      "pdf": "/pdfs/books/why-sharia-rule-is-better-than-democratic-rule.pdf"
     }
   ]
 }
