@@ -60,14 +60,14 @@
       "id": 9,
       "title": "লস্ট ইসলামিক হিস্টরি",
       "author": "ফিরাস আল-খতিব",
-      "image": "book-quran.jpg",
+      "image": "/images/books/lost-islamic-history.png",
       "pdf": "/pdfs/books/lost-islamic-history.pdf"
     },
     {
       "id": 10,
       "title": "আমার রমযান প্রস্তুতি",
       "author": "তানজীল আরেফীন আদনান",
-      "image": "book-hadith.jpg",
+      "image": "/images/books/my-ramadan-preparation.jpg",
       "pdf": "/pdfs/books/my-ramadan-preparation.pdf"
     },
     {
@@ -88,14 +88,14 @@
       "id": 13,
       "title": "সীরাহ (প্রথম খণ্ড)",
       "author": "রেইনড্রপস মিডিয়া",
-      "image": "book-aqeedah.jpg",
+      "image": "/images/books/raindrops-sirah-1st-part.jpg",
       "pdf": "/pdfs/books/raindrops-sirah-1st-part.pdf"
     },
     {
       "id": 14,
       "title": "সীরাহ (দ্বিতীয় খণ্ড)",
       "author": "রেইনড্রপস মিডিয়া",
-      "image": "book-ethics.jpg",
+      "image": "/images/books/raindrops-sirah-2nd-part.jpg",
       "pdf": "/pdfs/books/raindrops-sirah-2nd-part.pdf"
     },
     {
@@ -109,7 +109,7 @@
       "id": 16,
       "title": "গণতন্ত্রের চেয়ে শরীয়াহ শাসন কেন উত্তম",
       "author": "ডা. শামসুল আরেফীন",
-      "image": "book-spirituality.jpg",
+      "image": "/images/books/why-sharia-rule-is-better-than-democratic-rule-2.jpg",
       "pdf": "/pdfs/books/why-sharia-rule-is-better-than-democratic-rule.pdf"
     }
   ]
