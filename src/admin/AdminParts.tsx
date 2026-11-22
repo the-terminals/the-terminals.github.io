@@ -1,4 +1,4 @@
-import { Eye, Loader2, Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
+import { Eye, GripVertical, Loader2, Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -40,6 +40,13 @@ export const PageHeader = ({
       </Button>
     </div>
   </div>
+);
+
+export const ReorderHint = ({ disabledReason }: { disabledReason?: string }) => (
+  <p className="mb-2 flex items-center gap-1 text-xs text-muted-foreground">
+    <GripVertical className="h-3.5 w-3.5" />
+    {disabledReason ?? "Drag the handle to change the order shown on the website."}
+  </p>
 );
 
 export const RowActions = ({

@@ -9,7 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import AreaCard, { type Area } from "@/components/cards/AreaCard";
 import { areaIconNames, areaIcons } from "@/data/areaIcons";
 import { useJsonFile } from "./useJsonFile";
-import { ConfirmRemove, LoadState, PageHeader, RowActions } from "./AdminParts";
+import { ConfirmRemove, LoadState, PageHeader, ReorderHint, RowActions } from "./AdminParts";
+import SortableList from "./SortableList";
 
 const emptyArea: Area = { icon: "Lightbulb", title: "", description: "" };
 
@@ -58,28 +59,32 @@ const AreasAdmin = () => {
 
       <LoadState loading={loading} error={error} onRetry={reload} />
 
+      {data && !loading && areas.length > 1 && <ReorderHint />}
       {data && !loading && (
         <Card className="divide-y divide-border">
-          {areas.map((area, i) => {
-            const Icon = areaIcons[area.icon] ?? areaIcons.Lightbulb;
-            return (
-              <div key={`${area.title}-${i}`} className="flex items-center gap-3 p-3">
-                <div className="p-2 bg-primary/10 rounded-lg shrink-0">
-                  <Icon className="h-5 w-5 text-primary" />
+          <SortableList items={areas} onReorder={(next) => saveFile(next, "Order saved")} disabled={saving}>
+            {(area, i, handle) => {
+              const Icon = areaIcons[area.icon] ?? areaIcons.Lightbulb;
+              return (
+                <div className="flex items-center gap-3 p-3">
+                  {handle}
+                  <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                    <Icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground truncate">{area.title}</p>
+                    <p className="text-sm text-muted-foreground truncate">{area.description}</p>
+                  </div>
+                  <RowActions
+                    onPreview={() => setPreview(area)}
+                    onEdit={() => setEditing({ index: i, value: area })}
+                    onRemove={() => setRemoving(i)}
+                    disabled={saving}
+                  />
                 </div>
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium text-foreground truncate">{area.title}</p>
-                  <p className="text-sm text-muted-foreground truncate">{area.description}</p>
-                </div>
-                <RowActions
-                  onPreview={() => setPreview(area)}
-                  onEdit={() => setEditing({ index: i, value: area })}
-                  onRemove={() => setRemoving(i)}
-                  disabled={saving}
-                />
-              </div>
-            );
-          })}
+              );
+            }}
+          </SortableList>
           {areas.length === 0 && <p className="p-6 text-center text-muted-foreground">No areas yet.</p>}
         </Card>
       )}
@@ -115,11 +120,16 @@ const AreasAdmin = () => {
                 </div>
                 <div className="grid gap-1.5">
                   <Label htmlFor="area-title">Title</Label>
-                  <Input id="area-title" value={editing.value.title} onChange={(e) => setField("title", e.target.value)} />
+                  <Input
+                    id="area-title"
+                    value={editing.value.title}
+                    onChange={(e) => setField("title", e.target.value)}
+                  />
                 </div>
                 <div className="grid gap-1.5">
                   <Label htmlFor="area-description">Description</Label>
-                  <Textarea id="area-description"
+                  <Textarea
+                    id="area-description"
                     rows={4}
                     value={editing.value.description}
                     onChange={(e) => setField("description", e.target.value)}

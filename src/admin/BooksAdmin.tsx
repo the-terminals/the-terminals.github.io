@@ -11,7 +11,8 @@ import { BookPdfActions, BookPdfDialog } from "@/components/BookPdfPreview";
 import { resolveKnowledgeImage } from "@/data/knowledgeAssets";
 import { useJsonFile } from "./useJsonFile";
 import { uploadImage, uploadPdf } from "./storage";
-import { ConfirmRemove, LoadState, PageHeader, RowActions } from "./AdminParts";
+import { ConfirmRemove, LoadState, PageHeader, ReorderHint, RowActions } from "./AdminParts";
+import SortableList from "./SortableList";
 
 type KnowledgeFile = { books: Book[] } & Record<string, unknown>;
 
@@ -126,8 +127,7 @@ const BooksAdmin = () => {
     if (!uploadingPdf && !saving) pdfInput.current?.click();
   };
 
-  const clearPdf = () =>
-    setEditing((prev) => (prev ? { ...prev, value: { ...prev.value, pdf: undefined } } : prev));
+  const clearPdf = () => setEditing((prev) => (prev ? { ...prev, value: { ...prev.value, pdf: undefined } } : prev));
 
   const save = async () => {
     if (!editing) return;
@@ -147,8 +147,7 @@ const BooksAdmin = () => {
     await writeBooks(books.filter((b) => b.id !== book.id));
   };
 
-  const valid =
-    editing && editing.value.title.trim() && editing.value.author.trim() && editing.value.image;
+  const valid = editing && editing.value.title.trim() && editing.value.author.trim() && editing.value.image;
 
   return (
     <div>
@@ -174,34 +173,42 @@ const BooksAdmin = () => {
               className="pl-9 bg-background"
             />
           </div>
+          {books.length > 1 && (
+            <ReorderHint disabledReason={query ? "Clear the search to change the order by dragging." : undefined} />
+          )}
           <Card className="divide-y divide-border">
-            {filtered.map((book) => (
-              <div key={book.id} className="flex items-center gap-3 p-3">
-                <img
-                  src={resolveKnowledgeImage(book.image)}
-                  alt=""
-                  className="h-14 w-10 rounded object-cover shrink-0 bg-muted"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium text-foreground truncate">{book.title}</p>
-                  <p className="text-sm text-muted-foreground truncate">
-                    {book.author} · #{book.id}
-                    {book.pdf ? " · PDF" : " · No PDF"}
-                  </p>
+            <SortableList
+              items={filtered}
+              onReorder={(next) => saveFile({ ...(data as KnowledgeFile), books: next }, "Order saved")}
+              disabled={saving || !!query}
+            >
+              {(book, _i, handle) => (
+                <div className="flex items-center gap-3 p-3">
+                  {handle}
+                  <img
+                    src={resolveKnowledgeImage(book.image)}
+                    alt=""
+                    className="h-14 w-10 rounded object-cover shrink-0 bg-muted"
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground truncate">{book.title}</p>
+                    <p className="text-sm text-muted-foreground truncate">
+                      {book.author} · #{book.id}
+                      {book.pdf ? " · PDF" : " · No PDF"}
+                    </p>
+                  </div>
+                  <BookPdfActions book={book} onPreview={() => setPreviewPdf(book)} />
+                  <RowActions
+                    onPreview={() => setPreview(book)}
+                    onEdit={() => openEditor(book, false)}
+                    onRemove={() => setRemoving(book)}
+                    disabled={saving}
+                  />
                 </div>
-                <BookPdfActions book={book} onPreview={() => setPreviewPdf(book)} />
-                <RowActions
-                  onPreview={() => setPreview(book)}
-                  onEdit={() => openEditor(book, false)}
-                  onRemove={() => setRemoving(book)}
-                  disabled={saving}
-                />
-              </div>
-            ))}
+              )}
+            </SortableList>
             {filtered.length === 0 && (
-              <p className="p-6 text-center text-muted-foreground">
-                {query ? "No matching books." : "No books yet."}
-              </p>
+              <p className="p-6 text-center text-muted-foreground">{query ? "No matching books." : "No books yet."}</p>
             )}
           </Card>
         </>
@@ -309,8 +316,8 @@ const BooksAdmin = () => {
                     onChange={onPdfChosen}
                   />
                   <p className="text-xs text-muted-foreground">
-                    PDF up to 50 MB. Saved in public/pdfs/books and offered as a preview, new tab and download on
-                    the site.
+                    PDF up to 50 MB. Saved in public/pdfs/books and offered as a preview, new tab and download on the
+                    site.
                   </p>
                 </div>
               </div>
@@ -350,11 +357,7 @@ const BooksAdmin = () => {
                         : "opacity-0 group-hover/cover:opacity-100 group-focus-visible/cover:opacity-100"
                     }`}
                   >
-                    {uploading ? (
-                      <Loader2 className="h-6 w-6 animate-spin" />
-                    ) : (
-                      <ImagePlus className="h-6 w-6" />
-                    )}
+                    {uploading ? <Loader2 className="h-6 w-6 animate-spin" /> : <ImagePlus className="h-6 w-6" />}
                     {uploading
                       ? "Uploading…"
                       : dragging
@@ -392,11 +395,7 @@ const BooksAdmin = () => {
               <BookCard book={preview} />
               {preview.pdf && (
                 <div className="flex flex-col gap-2">
-                  <BookPdfActions
-                    book={preview}
-                    onPreview={() => setPreviewPdf(preview)}
-                    className="justify-center"
-                  />
+                  <BookPdfActions book={preview} onPreview={() => setPreviewPdf(preview)} className="justify-center" />
                   <p className="text-center text-xs text-muted-foreground">
                     Preview the PDF, open it in a new tab or download it.
                   </p>
